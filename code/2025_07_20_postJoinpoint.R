@@ -52,6 +52,7 @@ plot_supp_from2015 <- data |>
   ggplot(aes(x = Month)) + 
   geom_point(aes(y = `Crude Rate`, group = Mechanism_Death, color = fct_rev(Mechanism_Death)), alpha = 0.5) + 
   geom_smooth(aes(y = Model, group = Mechanism_Death, color = fct_rev(Mechanism_Death)), se = FALSE, linewidth = 1, span = 0.2) + 
+  #geom_line(aes(y = Model, color = fct_rev(Mechanism_Death)), linewidth = 1) + 
   facet_wrap(~Mechanism_Death, ncol = 2, scales = "free_y") + 
   theme_bw() + 
   geom_vline(data = data |> filter(str_detect(Flag, "Joinpoint")) |> 
