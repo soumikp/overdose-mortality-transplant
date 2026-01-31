@@ -1,0 +1,34 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww28380\viewh16120\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs36 \cf0 Cleaning steps for calculating  SPK/SLK trends\
+\
+Files needed\
+\
+TX_KI+KP+Insti+Deceased_Donor_Recoded.sav\
+Tx_Li+Insti+Donor_Deceased.sav\
+\'97\'97\'97\
+\
+\
+TX_KI+KP+Insti+Deceased_Donor_Recoded.sav; Simply check KP first \
+\
+USKPT=1 if ORG_TY="KP" & Puerto_Rico_Recipient=0 & DON_TY="C"\
+Filter for TxYYYYMM >= 201501 & TxYYYYMM <= 202412\
+Cross tabs \
+\
+CrossTabs::::::::USKPT TxYYYYMM MOD \
+\'97\'97\'97\
+Now calculating \
+SLK \
+\
+Create USDDLT=1 IF ORG_TY="LI" & DON_TY="C" & Puerto_Rico_Recipient=0 in liver file and merge the liver file with kidney file via PERS ID and DONOR ID; \
+USSLK = 1 IF USDDKT=1 & USDDLT=1\
+CROSSTABS: USSLK*TXYYYYMM*TXYYYMM*MECHANISM RECODED\
+\
+\
+\'97\'97\'97\'97\'97\
+For joinpoint, you will have to make the output 3 decimal places given the small numbers }

@@ -48,5 +48,9 @@ po/*~
 # RStudio Connect folder
 rsconnect/
 
-# data folder
+# more folders
 data/
+documents/
+code/submission 1/
+code/archive/
+

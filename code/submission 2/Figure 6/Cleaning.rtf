@@ -1,0 +1,36 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 ArialMT;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww25400\viewh15980\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs36 \cf0 Cleaning steps \
+\
+Files needed\
+\
+cand_liin.sas7bdat\
+stathist_liin.sas7bdat\
+institution.sas7bdat\
+\'97\'97\'97\
+\
+1. Status file open; filter this file with  CANHX_BEGIN_DT <= DATE.DMY(31,12,2024) AND ( MISSING(CANHX_END_DT) OR CANHX_END_DT >= DATE.DMY(1,1,2015) )====> Stat_Li_In_Study_Period.sav; filter with  WL_ORG=\'93LI\'94====> file is Stat_Li_Only_Study_Period.sav\
+2. Open cand_liin.sas7bdat. Deduplicate per PX_ID. NO DUPLICATES. Can be used as a lookuptable\
+3. Merge stat and cand files to ass variables by linking variable PX_ID. \'97\'97>. Stat_Li_Only_Study_Period+Candidate_file.sav\
+4. Instituion file :ADD 
+\f1\fs26 \expnd0\expndtw0\kerning0
+CAN_LISTING_
+\f0\fs36 \kerning1\expnd0\expndtw0 PREFIX BEFORE CTR_CD\
+CTR_TY to make 
+\f1\fs26 \expnd0\expndtw0\kerning0
+CAN_LISTING_CTR_CD AND CAN_LISTING_CTR_TY. \'97> Institution_with_CAN_LISTING_prefix.sav
+\f0\fs36 \kerning1\expnd0\expndtw0 \
+5. LINK merged status and candidate file with institution file Stat_Li_Only_Study_Period+Candidate_file+Institution.sav\
+6. Puerto_Rico_Listing=1 if PRIMARY_STATE="PR" ELSE Puerto_Rico_Listing=0\
+6. Filter PR out and save the file Puerto_Rico_Listing=0. File is Liver_Waitlist_Cohort.sav\
+7. Save this file as csv for R \
+\
+\
+\
+\
+}
