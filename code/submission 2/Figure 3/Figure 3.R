@@ -27,7 +27,7 @@ end_date          <- as.Date("2024-12-01")
 intervention_date <- as.Date("2023-05-01")
 knots             <- c(62, 65)
 
-intervention_label <- "Overdose decedent\ndonor kidney transplants rise"
+intervention_label <- "Overdose decedent\ndonor kidney transplants decline"
 
 if (!file.exists(csv_file)) stop("CSV file not found: ", csv_file)
 
@@ -128,7 +128,7 @@ p <- ggplot(df, aes(Date)) +
   geom_vline(xintercept = intervention_date, linetype = "dotted") +
   geom_text(
     data = tibble(Date = label_x, y = y_lab),
-    aes(x = Date, y = y-20, label = paste0("August 2023: ", intervention_label)),
+    aes(x = Date, y = y-20, label = paste0("May 2023: ", intervention_label)),
     angle = 90, lineheight = 0.95,
     vjust = -0.1, hjust = 0, 
     size = label_size, fontface = "bold"

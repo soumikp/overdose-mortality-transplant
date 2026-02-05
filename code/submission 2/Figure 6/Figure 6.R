@@ -129,7 +129,7 @@ p <- ggplot(df, aes(Date)) +
   geom_vline(xintercept = intervention_date, linetype = "dotted") +
   geom_text(
     data = tibble(Date = label_x, y = y_lab),
-    aes(x = Date, y = y-5, label = paste0("December 2023: ", intervention_label)),
+    aes(x = Date, y = y-5, label = paste0("August 2023: ", intervention_label)),
     angle = 90, lineheight = 0.95,
     vjust = -0.3, hjust = 0,
     size = label_size, fontface = "bold"
