@@ -1,21 +1,20 @@
-rm(list = ls())
-
-pacman::p_load(readr, dplyr, ggplot2, lubridate, here)
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(lubridate)
 
 # ---------------------------
 # 1. Read & clean data
 # ---------------------------
 
-file <- file.path(here(), "code", "submission 2", 
-                  "SupplementaryFigure 2", "data", "Liver OD nonOD JP data.csv")  # tab-delimited
+file <- file.path(here(), "code", "submission 2", "SupplementaryFigure 2", "data", "DDLT_joinpoint_data.csv")
 
 df <- read_tsv(file, show_col_types = FALSE)
 
 names(df) <- gsub("\ufeff", "", names(df))
-names(df) <- gsub("Ôªø", "", names(df))  # Handle BOM rendered as text
+names(df) <- gsub("Ôªø", "", names(df))
 names(df) <- trimws(names(df))
 
-# Ensure Month column exists (handle various encodings)
 if (!"Month" %in% names(df)) {
   month_col <- grep("Month", names(df), value = TRUE, ignore.case = TRUE)[1]
   if (!is.na(month_col)) {
@@ -24,14 +23,33 @@ if (!"Month" %in% names(df)) {
 }
 
 # ---------------------------
-# 2. Filter to MoD 2 & create dates
+# 2. Recode Donor_MoD & create dates
 # ---------------------------
 
 df_plot <- df %>%
-  filter(Donor_MoD == 2) %>%
   mutate(
-    # Clean Flag column - convert string "NA" to actual NA
     Flag = ifelse(Flag == "NA" | is.na(Flag), NA_character_, Flag),
+    Mechanism = case_when(
+      Donor_MoD == 1 ~ "Drug Overdose",
+      Donor_MoD == 2 ~ "Cardiovascular",
+      Donor_MoD == 3 ~ "Gunshot wound",
+      Donor_MoD == 4 ~ "Blunt Injury",
+      Donor_MoD == 5 ~ "ICH/stroke",
+      Donor_MoD == 6 ~ "Others",
+      Donor_MoD == 7 ~ "Overall"
+    ),
+    Mechanism = factor(
+      Mechanism,
+      levels = c(
+        "Drug Overdose",
+        "Overall",
+        "Cardiovascular",
+        "Gunshot wound",
+        "Blunt Injury",
+        "ICH/stroke",
+        "Others"
+      )
+    ),
     Date = as.Date("2015-01-01") %m+% months(Month - 1),
     Observed = `Crude Rate`,
     Fitted = Model
@@ -47,9 +65,9 @@ df_plot <- df_plot %>%
 # 3. Build smooth log-linear curves between joinpoints
 # ---------------------------
 
-# Function to extract segment endpoints
 get_segment_endpoints <- function(data) {
   data %>%
+    group_by(Mechanism) %>%
     arrange(Date) %>%
     mutate(
       is_joinpoint = grepl("Joinpoint", Flag, ignore.case = TRUE),
@@ -57,32 +75,23 @@ get_segment_endpoints <- function(data) {
       is_end = row_number() == n()
     ) %>%
     filter(is_joinpoint | is_start | is_end) %>%
-    select(Date, Fitted)
+    select(Mechanism, Date, Fitted) %>%
+    ungroup()
 }
 
-# Get segment endpoints
 segment_points <- get_segment_endpoints(df_plot)
 
-# Function to interpolate exponential curve between two points
 interpolate_exp_curve <- function(date1, y1, date2, y2, n_points = 100) {
   
-  # Convert dates to numeric (days since origin)
   t1 <- as.numeric(date1)
   t2 <- as.numeric(date2)
   
-  # Handle edge case where y1 or y2 is zero or negative
   if (y1 <= 0 | y2 <= 0) {
-    # Fall back to linear interpolation
     t_seq <- seq(t1, t2, length.out = n_points)
     y_seq <- seq(y1, y2, length.out = n_points)
   } else {
-    # Calculate exponential parameters
     b <- log(y2 / y1) / (t2 - t1)
-    
-    # Generate sequence of time points
     t_seq <- seq(t1, t2, length.out = n_points)
-    
-    # Calculate y values along exponential curve
     y_seq <- y1 * exp(b * (t_seq - t1))
   }
   
@@ -92,47 +101,28 @@ interpolate_exp_curve <- function(date1, y1, date2, y2, n_points = 100) {
   )
 }
 
-# Build smooth curves for each segment
 smooth_curves <- segment_points %>%
+  group_by(Mechanism) %>%
   arrange(Date) %>%
   mutate(
     Date_end = lead(Date),
     Fitted_end = lead(Fitted),
     segment_id = row_number()
   ) %>%
-  filter(!is.na(Date_end))
+  filter(!is.na(Date_end)) %>%
+  ungroup()
 
-# Generate interpolated points for all segments
-smooth_lines_list <- list()
-
-for (i in 1:nrow(smooth_curves)) {
+smooth_lines_df <- bind_rows(lapply(1:nrow(smooth_curves), function(i) {
   row <- smooth_curves[i, ]
-  
-  curve_points <- interpolate_exp_curve(
-    date1 = row$Date,
-    y1 = row$Fitted,
-    date2 = row$Date_end,
-    y2 = row$Fitted_end,
-    n_points = 100
-  )
-  
-  curve_points$segment_id <- row$segment_id
-  
-  smooth_lines_list[[i]] <- curve_points
-}
-
-smooth_lines_df <- bind_rows(smooth_lines_list)
+  curve <- interpolate_exp_curve(row$Date, row$Fitted, row$Date_end, row$Fitted_end)
+  curve$Mechanism <- row$Mechanism
+  curve$segment_id <- row$segment_id
+  curve
+})) %>%
+  mutate(group_id = interaction(Mechanism, segment_id))
 
 # ---------------------------
-# 4. Joinpoint locations (for vertical lines)
-# ---------------------------
-
-jp_df <- df_plot %>%
-  filter(grepl("Joinpoint", Flag, ignore.case = TRUE)) %>%
-  distinct(Date)
-
-# ---------------------------
-# 5. Axis ticks
+# 4. Axis ticks & colors
 # ---------------------------
 
 breaks <- as.Date(c(
@@ -149,24 +139,34 @@ labels <- c(
   "Jan\n2021", "Jan\n2023", "Dec\n2024"
 )
 
+cols <- c(
+  "Drug Overdose" = "red",
+  "Overall" = "blue",
+  "Cardiovascular" = "darkorange",
+  "Gunshot wound" = "darkgreen",
+  "Blunt Injury" = "purple",
+  "ICH/stroke" = "brown",
+  "Others" = "grey30"
+)
+
 # ---------------------------
-# 6. Plot
+# 5. Plot 1: Drug Overdose + Overall (NO dotted lines)
 # ---------------------------
 
-p <- ggplot(df_plot, aes(x = Date)) +
+df_drug_overall <- df_plot %>%
+  filter(Mechanism %in% c("Drug Overdose", "Overall"))
+
+smooth_drug_overall <- smooth_lines_df %>%
+  filter(Mechanism %in% c("Drug Overdose", "Overall"))
+
+p_liver_drug_overall <- ggplot(df_drug_overall, aes(x = Date)) +
   geom_point(aes(y = Observed), color = "black", size = 1.5) +
-  # Smooth log-linear curves
   geom_line(
-    data = smooth_lines_df,
-    aes(x = Date, y = Fitted_smooth, group = segment_id),
-    color = "blue",
+    data = smooth_drug_overall,
+    aes(x = Date, y = Fitted_smooth, color = Mechanism, group = group_id),
     linewidth = 1
   ) +
-  geom_vline(
-    data = jp_df,
-    aes(xintercept = Date),
-    linetype = "dotted"
-  ) +
+  scale_color_manual(values = cols) +
   scale_x_date(
     breaks = breaks,
     labels = labels,
@@ -174,28 +174,70 @@ p <- ggplot(df_plot, aes(x = Date)) +
     expand = expansion(mult = c(0.01, 0.05))
   ) +
   labs(
-    title = "Non-drug overdose",
     x = "Month",
     y = "Liver transplants (per million)"
   ) +
-  theme_bw(base_size = 16) +
+  facet_wrap(~ Mechanism, ncol = 1, scales = "free_y") +
+  theme_minimal(base_size = 16) +
   theme(
     legend.position = "none",
-    plot.title = element_text(face = "bold", hjust = 0.5),
     axis.title.x = element_text(face = "bold"),
     axis.title.y = element_text(face = "bold"),
-    axis.text = element_text(face = "bold")
+    axis.text = element_text(face = "bold"),
+    strip.text = element_text(face = "bold", size = 16)
   )
 
 # ---------------------------
-# 7. Print plot
+# 6. Plot 2: MoD 2–6 (NO dotted lines)
 # ---------------------------
 
-print(p)
+non_overall_mechs <- c(
+  "Cardiovascular", "Gunshot wound", "Blunt Injury", "ICH/stroke", "Others"
+)
 
-ggsave(file.path(here(), "code", "submission 2", "SupplementaryFigure 2", "SupplementaryFigure 2.pdf"), 
-       p, 
-       device = "pdf", 
-       height = 8.5, 
-       width = 8.5, 
-       units = "in")
+df_mech_2to6 <- df_plot %>%
+  filter(Mechanism %in% non_overall_mechs)
+
+smooth_mech_2to6 <- smooth_lines_df %>%
+  filter(Mechanism %in% non_overall_mechs)
+
+p_liver_mech_2to6 <- ggplot(df_mech_2to6, aes(x = Date)) +
+  geom_point(aes(y = Observed), color = "black", size = 1.5) +
+  geom_line(
+    data = smooth_mech_2to6,
+    aes(x = Date, y = Fitted_smooth, color = Mechanism, group = group_id),
+    linewidth = 1
+  ) +
+  scale_color_manual(values = cols) +
+  scale_x_date(
+    breaks = breaks,
+    labels = labels,
+    limits = c(start_date, as.Date("2024-12-31") + 30)
+  ) +
+  labs(
+    x = "Month",
+    y = "Liver transplants (per million)"
+  ) +
+  facet_wrap(~ Mechanism, ncol = 2) +
+  theme_bw(base_size = 16) +
+  theme(
+    legend.position = "none",
+    #strip.text = element_text(face = "bold", size = 14),
+    axis.title.x = element_text(face = "bold"),
+    axis.title.y = element_text(face = "bold"),
+    axis.text = element_text(face = "bold"),
+    panel.spacing = unit(1, "lines"), 
+    strip.background = element_rect(fill = "black"), 
+    strip.text = element_text(face = "bold", color = "white")
+  )
+
+
+
+if(FALSE){
+  ggsave(file.path(here(), "code", "submission 2", "SupplementaryFigure 2", "SupplementaryFigure 2.pdf"), 
+         p_liver_mech_2to6, 
+         device = "pdf", 
+         height = 11, 
+         width = 8.5, 
+         units = "in")
+}
