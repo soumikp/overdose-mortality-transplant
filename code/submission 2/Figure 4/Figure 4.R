@@ -38,18 +38,29 @@ df_plot <- df %>%
     Date = as.Date("2015-01-01") %m+% months(Month - 1),
     Observed = `Crude Rate`,
     Fitted = Model,
-    Panel = factor(mod_labels[as.character(Donor_MoD)],
-                   levels = c("Drug Overdose", "Non-drug Overdose", "Overall"))
+    Panel = factor(
+      mod_labels[as.character(Donor_MoD)],
+      levels = c("Drug Overdose", "Non-drug Overdose", "Overall")
+    )
   )
 
 start_date <- as.Date("2015-01-01")
-end_date <- as.Date("2024-12-01")
+end_date   <- as.Date("2024-12-01")
 
 df_plot <- df_plot %>%
   filter(Date >= start_date, Date <= end_date)
 
 # ---------------------------
-# 3. Build smooth log-linear curves between joinpoints
+# 2b. Joinpoint dates (vertical dashed bars)
+# ---------------------------
+
+joinpoints_df <- df_plot %>%
+  filter(!is.na(Flag), grepl("Joinpoint", Flag, ignore.case = TRUE)) %>%
+  distinct(Panel, Date) |> 
+  filter(!(Panel == "Non-drug Overdose" & Date == "2021-06-01"))
+
+# ---------------------------
+# 3. Smooth log-linear segments
 # ---------------------------
 
 get_segment_endpoints <- function(data) {
@@ -58,7 +69,7 @@ get_segment_endpoints <- function(data) {
     mutate(
       is_joinpoint = grepl("Joinpoint", Flag, ignore.case = TRUE),
       is_start = row_number() == 1,
-      is_end = row_number() == n()
+      is_end   = row_number() == n()
     ) %>%
     filter(is_joinpoint | is_start | is_end) %>%
     select(Date, Fitted, Panel)
@@ -95,21 +106,21 @@ for (panel_name in levels(df_plot$Panel)) {
   smooth_curves <- segment_points %>%
     arrange(Date) %>%
     mutate(
-      Date_end = lead(Date),
+      Date_end   = lead(Date),
       Fitted_end = lead(Fitted),
       segment_id = row_number()
     ) %>%
     filter(!is.na(Date_end))
   
   for (i in 1:nrow(smooth_curves)) {
+    
     row <- smooth_curves[i, ]
     
     curve_points <- interpolate_exp_curve(
       date1 = row$Date,
-      y1 = row$Fitted,
+      y1    = row$Fitted,
       date2 = row$Date_end,
-      y2 = row$Fitted_end,
-      n_points = 100
+      y2    = row$Fitted_end
     )
     
     curve_points$segment_id <- paste(panel_name, row$segment_id, sep = "_")
@@ -145,10 +156,18 @@ labels <- c(
 )
 
 # ---------------------------
-# 5. Faceted Plot (NO dotted lines)
+# 5. Faceted plot with black facet bars + framed panels + color-matched joinpoint lines
 # ---------------------------
 
 p <- ggplot(df_plot, aes(x = Date)) +
+  geom_vline(
+    data = joinpoints_df,
+    aes(xintercept = Date, color = Panel),
+    linetype = "dashed",
+    linewidth = 0.8,
+    show.legend = FALSE,
+    inherit.aes = FALSE
+  ) +
   geom_point(aes(y = Observed), color = "black", size = 1.5) +
   geom_line(
     data = smooth_lines_df,
@@ -157,51 +176,39 @@ p <- ggplot(df_plot, aes(x = Date)) +
   ) +
   scale_color_manual(
     values = c(
-      "Drug Overdose" = "blue",
+      "Drug Overdose"     = "blue",
       "Non-drug Overdose" = "red",
-      "Overall" = "darkgreen"
+      "Overall"           = "darkgreen"
     )
   ) +
   scale_x_date(
     breaks = breaks,
     labels = labels,
     limits = c(start_date, as.Date("2024-12-31") + 30),
-    expand = expansion(mult = c(0.01, 0.05))
+    expand = expansion(mult = c(0.01, 0))
   ) +
-  scale_y_continuous(
-    breaks = scales::pretty_breaks(n = 4)
-  ) +
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 4)) +
   labs(
     x = "Month",
     y = "Liver transplants (per million)"
   ) +
   facet_wrap(~ Panel, ncol = 1, scales = "free_y") +
-  theme_bw(base_size = 16) +
+  theme_minimal(base_size = 16) +
   theme(
     legend.position = "none",
-    #strip.text = element_text(face = "bold", size = 14),
+    
+    # black facet header bars (like your PDF)
+    strip.background = element_rect(fill = "black", color = "black"),
+    strip.text = element_text(face = "bold", size = 14, color = "white"),
+    
+    # frame around each facet panel (like your PDF)
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 0.9),
+    
     axis.title.x = element_text(face = "bold"),
     axis.title.y = element_text(face = "bold"),
     axis.text = element_text(face = "bold"),
-    panel.spacing = unit(1, "lines"), 
-    strip.background = element_rect(fill = "black"), 
-    strip.text = element_text(face = "bold", color = "white")
-  ) + 
-  geom_vline(data = data.frame(Panel = rep(c("Drug Overdose", "Non-drug Overdose", "Overall"), times = c(2, 1, 1)), 
-                               date = c("2016-06-01", "2023-08-01", "2021-09-01", "2021-09-01")), 
-             aes(xintercept = as.Date(date), color = Panel), 
-             linetype = "dashed")
-
-
-
-
-
-
-
-# ---------------------------
-# 6. Print plot
-# ---------------------------
-print(p)
+    panel.spacing = unit(1, "lines")
+  )
 
 if(FALSE){
   ggsave(file.path(here(), "code", "submission 2", "Figure 4", "Figure 4.pdf"), 
