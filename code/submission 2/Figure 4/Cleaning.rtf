@@ -12,18 +12,18 @@
 {\list\listtemplateid6\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat0\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid501\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid6}
 {\list\listtemplateid7\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat0\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid601\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid7}}
 {\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}{\listoverride\listid5\listoverridecount0\ls5}{\listoverride\listid6\listoverridecount0\ls6}{\listoverride\listid7\listoverridecount0\ls7}}
-\margl1440\margr1440\vieww28320\viewh17100\viewkind0
+\margl1440\margr1440\vieww28340\viewh17100\viewkind0
 \deftab720
 \pard\pardeftab720\sa321\partightenfactor0
 
 \f0\b\fs48 \cf0 \expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Figure 1 and Supplementary Figure 1: Data Cleaning and Preparation Steps\
+\outl0\strokewidth0 \strokec2 Figure 4 and Supplementary Figure 2: Data Cleaning and Preparation Steps\
 \pard\pardeftab720\sa298\partightenfactor0
 
 \fs36 \cf0 Overview\
 \pard\pardeftab720\sa240\partightenfactor0
 
-\f1\b0\fs24 \cf0 Figure 1 presents joinpoint regression analysis of monthly US deceased donor kidney transplant rates (January 2015\'96December 2024), stratified by donor mechanism of death: drug overdose, non-drug overdose, and overall. Supplementary Figure 1 presents the same analysis for the individual non-overdose decedent donor mechanisms of death: cardiovascular; gunshot wound; blunt injury; intracranial hemorrhage (ICH) or stroke; and others. Both figures use the same underlying data and cleaning steps described below. Crude rates are calculated per US resident population using the NCI Joinpoint Regression Program Version 5.4 (detailed settings in manuscript Methods section).\
+\f1\b0\fs24 \cf0 Figure 4 presents joinpoint regression analysis of monthly US deceased donor liver transplant rates (January 2015\'96December 2024), stratified by donor mechanism of death: drug overdose, non-drug overdose, and overall. Supplementary Figure 2 presents the same analysis for the individual non-overdose decedent donor mechanisms of death: cardiovascular; gunshot wound; blunt injury; intracranial hemorrhage (ICH) or stroke; and others. Both figures use the same underlying data and cleaning steps described below. Crude rates are calculated per US resident population using the NCI Joinpoint Regression Program Version 5.4 (detailed settings in manuscript Methods section).\
 \pard\pardeftab720\partightenfactor0
 \cf3 \strokec3 \
 \pard\pardeftab720\sa298\partightenfactor0
@@ -60,14 +60,8 @@
 \f2\fs26 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	
 \f3 \uc0\u9702 
 \f2 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 TX_KI.sav
-\f1\fs24  \'97 Kidney transplant records\
-\ls2\ilvl1
-\f2\fs26 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	
-\f3 \uc0\u9702 
-\f2 	}\expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 TX_KP.sav
-\f1\fs24  \'97 Kidney-pancreas transplant records\
+\outl0\strokewidth0 \strokec2 TX_LI.sav
+\f1\fs24  \'97 Liver transplant records\
 \ls2\ilvl1
 \f2\fs26 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	
 \f3 \uc0\u9702 
@@ -157,24 +151,24 @@
 \f0\b\fs36 \cf0 \strokec2 Cleaning Steps\
 \pard\pardeftab720\sa280\partightenfactor0
 
-\fs28 \cf0 Step 1: Combine Transplant Files\
+\fs28 \cf0 Step 1: Open Liver Transplant File\
 \pard\pardeftab720\sa240\partightenfactor0
 
-\f1\b0\fs24 \cf0 Merge 
-\f2\fs26 TX_KI.sav
-\f1\fs24  and 
-\f2\fs26 TX_KP.sav
-\f1\fs24  to combine rows (append kidney and kidney-pancreas transplant records into a single dataset).\
+\f1\b0\fs24 \cf0 Open 
+\f2\fs26 TX_LI.sav
+\f1\fs24 .\
 \pard\pardeftab720\sa240\partightenfactor0
 
-\f0\b \cf0 Expected N = 640,392 rows
+\f0\b \cf0 Expected N = 228,338 rows
 \f1\b0 \
 \pard\pardeftab720\sa280\partightenfactor0
 
 \f0\b\fs28 \cf0 Step 2: Merge Institution Data\
 \pard\pardeftab720\sa240\partightenfactor0
 
-\f1\b0\fs24 \cf0 Merge the combined file from Step 1 with 
+\f1\b0\fs24 \cf0 Merge 
+\f2\fs26 TX_LI.sav
+\f1\fs24  with 
 \f2\fs26 INSTITUTION.sav
 \f1\fs24  to add transplant center variables.\
 \pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
@@ -206,40 +200,29 @@
 \f0\b \cf0 Note:
 \f1\b0  
 \f2\fs26 DON_DEATH_MECH
-\f1\fs24  is already present in TX_KI and TX_KP. This merge adds additional donor variables used elsewhere in the analysis (e.g., Table 1).\
+\f1\fs24  is already present in TX_LI. This merge adds additional donor variables used elsewhere in the analysis (e.g., Table 2).\
 \pard\pardeftab720\sa280\partightenfactor0
 
-\f0\b\fs28 \cf0 Step 4: Flag Kidney and Kidney-Pancreas Transplants\
+\f0\b\fs28 \cf0 Step 4: Define US Deceased Donor Liver Transplant Cohort\
 \pard\pardeftab720\sa240\partightenfactor0
 
 \f1\b0\fs24 \cf0 Create variable:\
 \pard\pardeftab720\partightenfactor0
 
-\f2\fs26 \cf0 Kidney_OR_KP = 1  IF  ORG_TY = "KI"  OR  ORG_TY = "KP"\
+\f2\fs26 \cf0 DDLT = 1  IF  ORG_TY = "LI"  AND  DON_TY = "C"\
 \pard\pardeftab720\sa280\partightenfactor0
 
 \f0\b\fs28 \cf0 Step 5: Flag Puerto Rico Recipients\
 \pard\pardeftab720\sa240\partightenfactor0
 
-\f1\b0\fs24 \cf0 Create variable:\
+\f1\b0\fs24 \cf0 Create variable based on the listing center's state from the institution file:\
 \pard\pardeftab720\partightenfactor0
 
-\f2\fs26 \cf0 Puerto_Rico_Recipient = 1  IF  REC_PRIMARY_STATE = "PR"\
+\f2\fs26 \cf0 Puerto_Rico_Recipient = 1  IF  PRIMARY_STATE = "PR"\
 Puerto_Rico_Recipient = 0  OTHERWISE\
 \pard\pardeftab720\sa280\partightenfactor0
 
-\f0\b\fs28 \cf0 Step 6: Define US Deceased Donor Kidney Transplant Cohort\
-\pard\pardeftab720\sa240\partightenfactor0
-
-\f1\b0\fs24 \cf0 Create variable:\
-\pard\pardeftab720\partightenfactor0
-
-\f2\fs26 \cf0 USDDKT = 1  IF  Kidney_OR_KP = 1\
-              AND  Puerto_Rico_Recipient = 0\
-              AND  DON_TY = "C"\
-\pard\pardeftab720\sa280\partightenfactor0
-
-\f0\b\fs28 \cf0 Step 7: Create Year-Month Variable\
+\f0\b\fs28 \cf0 Step 6: Create Year-Month Variable\
 \pard\pardeftab720\sa240\partightenfactor0
 
 \f1\b0\fs24 \cf0 Create variable:\
@@ -248,20 +231,22 @@ Puerto_Rico_Recipient = 0  OTHERWISE\
 \f2\fs26 \cf0 TxYYYYMM = (XDATE.YEAR(REC_TX_DT) * 100) + XDATE.MONTH(REC_TX_DT)\
 \pard\pardeftab720\sa280\partightenfactor0
 
-\f0\b\fs28 \cf0 Step 8: Apply Inclusion Criteria\
+\f0\b\fs28 \cf0 Step 7: Apply Inclusion Criteria\
 \pard\pardeftab720\sa240\partightenfactor0
 
 \f1\b0\fs24 \cf0 Select cases where:\
 \pard\pardeftab720\partightenfactor0
 
-\f2\fs26 \cf0 TxYYYYMM >= 201501  AND  TxYYYYMM <= 202412  AND  USDDKT = 1\
+\f2\fs26 \cf0 TxYYYYMM >= 201501  AND  TxYYYYMM <= 202412  AND  DDLT = 1  AND  Puerto_Rico_Recipient = 0\
 \pard\pardeftab720\sa240\partightenfactor0
 
-\f0\b\fs24 \cf0 Expected N = 176,544 rows in the final analytic cohort
+\f0\b\fs24 \cf0 484 Puerto Rico rows were excluded
+\f1\b0  
+\f0\b Expected N = 84,682 rows in the final analytic cohort
 \f1\b0 \
 \pard\pardeftab720\sa280\partightenfactor0
 
-\f0\b\fs28 \cf0 Step 9: Recode Donor Mechanism of Death\
+\f0\b\fs28 \cf0 Step 8: Recode Donor Mechanism of Death\
 \pard\pardeftab720\sa240\partightenfactor0
 
 \f1\b0\fs24 \cf0 Recode SRTR variable 
@@ -475,11 +460,11 @@ Puerto_Rico_Recipient = 0  OTHERWISE\
 \f1\fs24 , 
 \f2\fs26 DON_TY
 \f1\fs24 , or 
-\f2\fs26 REC_PRIMARY_STATE
+\f2\fs26 PRIMARY_STATE
 \f1\fs24 .\
 \pard\pardeftab720\sa280\partightenfactor0
 
-\f0\b\fs28 \cf0 Step 10: Generate Monthly Transplant Counts by Mechanism of Death\
+\f0\b\fs28 \cf0 Step 9: Generate Monthly Transplant Counts by Mechanism of Death\
 \pard\pardeftab720\sa240\partightenfactor0
 
 \f1\b0\fs24 \cf0 Use SPSS Crosstabs:\
@@ -488,7 +473,7 @@ Puerto_Rico_Recipient = 0  OTHERWISE\
 \f0\b \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
 \outl0\strokewidth0 \strokec2 Target (rows):
 \f1\b0  
-\f2\fs26 USDDKT
+\f2\fs26 DDLT
 \f1\fs24 \
 \ls6\ilvl0
 \f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
@@ -512,25 +497,25 @@ Puerto_Rico_Recipient = 0  OTHERWISE\
 \f1\fs24 .\
 \pard\pardeftab720\sa280\partightenfactor0
 
-\f0\b\fs28 \cf0 Step 11: Prepare Joinpoint Analysis Input Files\
+\f0\b\fs28 \cf0 Step 10: Prepare Joinpoint Analysis Input Files\
 \pard\pardeftab720\sa240\partightenfactor0
 
 \f1\b0\fs24 \cf0 Create two CSV files from the crosstab output:\
 \pard\pardeftab720\sa240\partightenfactor0
 
-\f0\b \cf0 File 1 \'97 For Figure 1
+\f0\b \cf0 File 1 \'97 For Figure 4
 \f1\b0  (
-\f2\fs26 Kidney_OD_nonOD_JP.csv
+\f2\fs26 Fig_4.csv
 \f1\fs24 ): Aggregate mechanism categories into 3 groups: drug overdose (recoded category 1), non-drug overdose (sum of recoded categories 2\'966), and overall (category 7). This file contains 360 rows (120 months \'d7 3 categories).\
 
-\f0\b File 2 \'97 For Supplementary Figure 1
+\f0\b File 2 \'97 For Supplementary Figure 2
 \f1\b0  (
-\f2\fs26 Joinpoint_MOD.csv
+\f2\fs26 Joinpoint_DDLT.csv
 \f1\fs24 ): Use all 7 individual categories (recoded categories 1\'966 plus overall). This file contains 840 rows (120 months \'d7 7 categories).\
 Both files share the following column structure:\
 
 \itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
-\clvertalc \clshdrawnil \clwWidth1560\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth2964\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
 \clvertalc \clshdrawnil \clwWidth4072\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
 \pard\intbl\itap1\pardeftab720\qc\partightenfactor0
 
@@ -539,7 +524,7 @@ Both files share the following column structure:\
 \cf0 Description\cell \row
 
 \itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
-\clvertalc \clshdrawnil \clwWidth1560\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth2964\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
 \clvertalc \clshdrawnil \clwWidth4072\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
 \pard\intbl\itap1\pardeftab720\partightenfactor0
 
@@ -549,34 +534,34 @@ Both files share the following column structure:\
 \cf0 Sequential month number (1\'96120)\cell \row
 
 \itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
-\clvertalc \clshdrawnil \clwWidth1560\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth2964\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
 \clvertalc \clshdrawnil \clwWidth4072\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
 \pard\intbl\itap1\pardeftab720\partightenfactor0
 
-\f2\fs26 \cf0 Tx_count
+\f2\fs26 \cf0 Donor_MoD
+\f1\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 Mechanism of death category\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2964\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth4072\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf0 Tx_Count
 \f1\fs24 \cell 
 \pard\intbl\itap1\pardeftab720\partightenfactor0
 \cf0 Monthly transplant count for that category\cell \row
 
-\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
-\clvertalc \clshdrawnil \clwWidth1560\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
-\clvertalc \clshdrawnil \clwWidth4072\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
-\pard\intbl\itap1\pardeftab720\partightenfactor0
-
-\f2\fs26 \cf0 Population
-\f1\fs24 \cell 
-\pard\intbl\itap1\pardeftab720\partightenfactor0
-\cf0 US monthly resident population estimate\cell \row
-
 \itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
-\clvertalc \clshdrawnil \clwWidth1560\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth2964\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
 \clvertalc \clshdrawnil \clwWidth4072\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
 \pard\intbl\itap1\pardeftab720\partightenfactor0
 
-\f2\fs26 \cf0 MoD
+\f2\fs26 \cf0 Resident_population
 \f1\fs24 \cell 
 \pard\intbl\itap1\pardeftab720\partightenfactor0
-\cf0 Mechanism of death category\cell \lastrow\row
+\cf0 US monthly resident population estimate\cell \lastrow\row
 \pard\pardeftab720\sa240\partightenfactor0
 
 \f0\b \cf0 Population source assignment:
@@ -588,25 +573,22 @@ Both files share the following column structure:\
 \outl0\strokewidth0 \strokec2 January 2021 \'96 December 2024: Resident Population from Census 2020-series (NA-EST2024-POP)\
 \pard\pardeftab720\sa240\partightenfactor0
 \cf0 The joinpoint program calculates the crude transplant rate from 
-\f2\fs26 Tx_count
+\f2\fs26 Tx_Count
 \f1\fs24  and 
-\f2\fs26 Population
+\f2\fs26 Resident_population
 \f1\fs24 . Analysis settings are described in the manuscript Methods section.\
 \pard\pardeftab720\partightenfactor0
 \cf3 \strokec3 \
 \pard\pardeftab720\sa298\partightenfactor0
 
 \f0\b\fs36 \cf0 \strokec2 Verification Checksums\
-\pard\pardeftab720\sa240\partightenfactor0
-
-\f1\b0\fs24 \cf0 An investigator replicating this analysis should confirm the following:\
 
 \itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
 \clvertalc \clshdrawnil \clwWidth4380\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
 \clvertalc \clshdrawnil \clwWidth6320\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
 \pard\intbl\itap1\pardeftab720\qc\partightenfactor0
 
-\f0\b \cf0 Checkpoint\cell 
+\fs24 \cf0 Checkpoint\cell 
 \pard\intbl\itap1\pardeftab720\qc\partightenfactor0
 \cf0 Expected Value\cell \row
 
@@ -615,17 +597,25 @@ Both files share the following column structure:\
 \clvertalc \clshdrawnil \clwWidth6320\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
 \pard\intbl\itap1\pardeftab720\partightenfactor0
 
-\f1\b0 \cf0 Rows after Step 1 (TX_KI + TX_KP merge)\cell 
+\f1\b0 \cf0 Rows in TX_LI.sav\cell 
 \pard\intbl\itap1\pardeftab720\partightenfactor0
-\cf0 640,392\cell \row
+\cf0 228,338\cell \row
 
 \itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
 \clvertalc \clshdrawnil \clwWidth4380\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
 \clvertalc \clshdrawnil \clwWidth6320\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
 \pard\intbl\itap1\pardeftab720\partightenfactor0
-\cf0 Rows after Step 8 (final analytic cohort)\cell 
+\cf0 Puerto Rico rows excluded\cell 
 \pard\intbl\itap1\pardeftab720\partightenfactor0
-\cf0 176,544\cell \row
+\cf0 484\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth4380\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth6320\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 Rows after Step 7 (final analytic cohort)\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 84,682\cell \row
 
 \itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
 \clvertalc \clshdrawnil \clwWidth4380\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
@@ -647,7 +637,7 @@ Both files share the following column structure:\
 \clvertalc \clshdrawnil \clwWidth4380\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
 \clvertalc \clshdrawnil \clwWidth6320\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
 \pard\intbl\itap1\pardeftab720\partightenfactor0
-\cf0 Final joinpoint input file rows (Figure 1)\cell 
+\cf0 Final joinpoint input file rows (Figure 4)\cell 
 \pard\intbl\itap1\pardeftab720\partightenfactor0
 \cf0 360 (120 months \'d7 3 categories: overdose, non-overdose, overall)\cell \row
 
@@ -655,7 +645,7 @@ Both files share the following column structure:\
 \clvertalc \clshdrawnil \clwWidth4380\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
 \clvertalc \clshdrawnil \clwWidth6320\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
 \pard\intbl\itap1\pardeftab720\partightenfactor0
-\cf0 Final joinpoint input file rows (Supp Fig 1)\cell 
+\cf0 Final joinpoint input file rows (Supp Fig 2)\cell 
 \pard\intbl\itap1\pardeftab720\partightenfactor0
 \cf0 840 (120 months \'d7 7 categories: 6 mechanisms + overall)\cell \lastrow\row
 \pard\pardeftab720\partightenfactor0

@@ -1,36 +1,254 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2822
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 ArialMT;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\margl1440\margr1440\vieww25400\viewh15980\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+{\rtf1\ansi\ansicpg1252\cocoartf2867
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\froman\fcharset0 Times-Bold;\f1\froman\fcharset0 Times-Roman;\f2\fmodern\fcharset0 Courier;
+\f3\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red109\green109\blue109;}
+{\*\expandedcolortbl;;\cssrgb\c50196\c50196\c50196;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{circle\}}{\leveltext\leveltemplateid102\'01\uc0\u9702 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listname ;}\listid2}
+{\list\listtemplateid3\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid201\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid3}
+{\list\listtemplateid4\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid301\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid4}
+{\list\listtemplateid5\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid401\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid5}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}{\listoverride\listid5\listoverridecount0\ls5}}
+\margl1440\margr1440\vieww25400\viewh15200\viewkind0
+\deftab720
+\pard\pardeftab720\sa321\partightenfactor0
 
-\f0\fs36 \cf0 Cleaning steps \
-\
-Files needed\
-\
-cand_liin.sas7bdat\
-stathist_liin.sas7bdat\
-institution.sas7bdat\
-\'97\'97\'97\
-\
-1. Status file open; filter this file with  CANHX_BEGIN_DT <= DATE.DMY(31,12,2024) AND ( MISSING(CANHX_END_DT) OR CANHX_END_DT >= DATE.DMY(1,1,2015) )====> Stat_Li_In_Study_Period.sav; filter with  WL_ORG=\'93LI\'94====> file is Stat_Li_Only_Study_Period.sav\
-2. Open cand_liin.sas7bdat. Deduplicate per PX_ID. NO DUPLICATES. Can be used as a lookuptable\
-3. Merge stat and cand files to ass variables by linking variable PX_ID. \'97\'97>. Stat_Li_Only_Study_Period+Candidate_file.sav\
-4. Instituion file :ADD 
-\f1\fs26 \expnd0\expndtw0\kerning0
-CAN_LISTING_
-\f0\fs36 \kerning1\expnd0\expndtw0 PREFIX BEFORE CTR_CD\
-CTR_TY to make 
-\f1\fs26 \expnd0\expndtw0\kerning0
-CAN_LISTING_CTR_CD AND CAN_LISTING_CTR_TY. \'97> Institution_with_CAN_LISTING_prefix.sav
-\f0\fs36 \kerning1\expnd0\expndtw0 \
-5. LINK merged status and candidate file with institution file Stat_Li_Only_Study_Period+Candidate_file+Institution.sav\
-6. Puerto_Rico_Listing=1 if PRIMARY_STATE="PR" ELSE Puerto_Rico_Listing=0\
-6. Filter PR out and save the file Puerto_Rico_Listing=0. File is Liver_Waitlist_Cohort.sav\
-7. Save this file as csv for R \
-\
-\
-\
-\
+\f0\b\fs48 \cf0 \expnd0\expndtw0\kerning0
+Figure 6: Data Cleaning and Preparation Steps\
+\pard\pardeftab720\sa298\partightenfactor0
+
+\fs36 \cf0 Overview\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 Figure 6 presents an interrupted time series analysis of the monthly active liver transplant waitlist census (January 2015\'96December 2024), with August 2023 as the time of intervention. Joinpoint regression was used to estimate preintervention knots, and segmented regression with Newey\'96West robust standard errors was used to estimate slope change following the inflection in overdose decedent donor transplant rates. Analysis details are described in the manuscript Methods section.\
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 Software\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls1\ilvl0
+\fs24 \cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+IBM SPSS Statistics
+\f1\b0  Version 30.0.0.0 (Build 172) \'97 data cleaning as described below\
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 Required Data Sources\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\fs28 \cf0 SRTR Standard Analysis Files (SAFs)\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls2\ilvl0
+\fs24 \cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Release:
+\f1\b0  June 2025\
+\ls2\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Files used:
+\f1\b0 \
+\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\partightenfactor0
+\ls2\ilvl1
+\f2\fs26 \cf0 \kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u9702 
+\f2 	}\expnd0\expndtw0\kerning0
+stathist_liin.sas7bdat
+\f1\fs24  \'97 Status history for liver and intestine candidates\
+\ls2\ilvl1
+\f2\fs26 \kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u9702 
+\f2 	}\expnd0\expndtw0\kerning0
+cand_liin.sas7bdat
+\f1\fs24  \'97 Candidate registration for liver and intestine candidates\
+\ls2\ilvl1
+\f2\fs26 \kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u9702 
+\f2 	}\expnd0\expndtw0\kerning0
+institution.sas7bdat
+\f1\fs24  \'97 Transplant center information\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 US Census Bureau Monthly Population Estimates\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls3\ilvl0
+\f1\b0\fs24 \cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Same population files as Figure 1 (see Figure 1 cleaning steps for full source details)\
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 Cleaning Steps\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\fs28 \cf0 Step 1: Filter Status History File\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 Open 
+\f2\fs26 stathist_liin.sas7bdat
+\f1\fs24 . Filter to status episodes that overlap the study period:\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf0 CANHX_BEGIN_DT <= 12/31/2024  AND  (MISSING(CANHX_END_DT)  OR  CANHX_END_DT >= 1/1/2015)\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f0\b\fs24 \cf0 Expected N = 1,707,299 rows
+\f1\b0 \
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Step 2: Filter to Liver Candidates\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 Filter the file from Step 1 to liver candidates only:\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf0 WL_ORG = "LI"\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f0\b\fs24 \cf0 Expected N = 1,704,214 rows
+\f1\b0 \
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Step 3: Deduplicate Candidate File\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 Open 
+\f2\fs26 cand_liin.sas7bdat
+\f1\fs24 . Check for duplicates by 
+\f2\fs26 PX_ID
+\f1\fs24 . No duplicates were found.\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f0\b \cf0 Expected N = 389,906 unique rows
+\f1\b0 \
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Step 4: Merge Status History and Candidate Files\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 Merge the filtered status history file (Step 2) with the candidate file (Step 3) to add candidate variables.\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls4\ilvl0
+\f0\b \cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Linking variable:
+\f1\b0  
+\f2\fs26 PX_ID
+\f1\fs24 \
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Step 5: Merge with Institution File\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 Merge the file from Step 4 with 
+\f2\fs26 institution.sas7bdat
+\f1\fs24  to add transplant center variables, including the listing center's state.\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls5\ilvl0
+\f0\b \cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Linking variables:
+\f1\b0  
+\f2\fs26 CAN_LISTING_CTR_CD
+\f1\fs24  and 
+\f2\fs26 CAN_LISTING_CTR_TY
+\f1\fs24 \
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Step 6: Exclude Puerto Rico Listings\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 Create variable based on the listing center's state from the institution file:\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf0 Puerto_Rico_Listing = 1  IF  PRIMARY_STATE = "PR"\
+Puerto_Rico_Listing = 0  OTHERWISE\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\fs24 \cf0 Filter to 
+\f2\fs26 Puerto_Rico_Listing = 0
+\f1\fs24 .\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f0\b \cf0 2,479 rows with Puerto Rico listings were excluded
+\f1\b0  
+\f0\b Expected N = 1,701,735 rows after exclusion
+\f1\b0 \
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Step 7: Save as CSV\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 Save the filtered file as CSV for R processing. The R code for computing monthly active waitlist size (counting unique 
+\f2\fs26 PERS_ID
+\f1\fs24  with any status code except 6999 in each month) and for the interrupted time series analysis is provided separately.\
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 Verification Checksums\
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth4477\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth1585\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\qc\partightenfactor0
+
+\fs24 \cf0 Checkpoint\cell 
+\pard\intbl\itap1\pardeftab720\qc\partightenfactor0
+\cf0 Expected Value\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth4477\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth1585\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f1\b0 \cf0 Rows after Step 1 (stathist date-filtered)\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 1,707,299\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth4477\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth1585\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 Rows after Step 2 (filtered to WL_ORG="LI")\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 1,704,214\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth4477\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth1585\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 Unique PX_ID in candidate file\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 389,906\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth4477\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth1585\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 Duplicate PX_ID pairs identified\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 0\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth4477\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth1585\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 Puerto Rico rows excluded\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 2,479\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth4477\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth1585\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 Rows after Puerto Rico exclusion\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 1,701,735\cell \lastrow\row
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 AI Disclosure\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 Generative AI (Claude, Anthropic, Opus 4.6 Extended) was used to format the cleaning steps per author's inputs and prompts.\
 }

@@ -1,34 +1,311 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2822
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\margl1440\margr1440\vieww28380\viewh16120\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+{\rtf1\ansi\ansicpg1252\cocoartf2867
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\froman\fcharset0 Times-Bold;\f1\froman\fcharset0 Times-Roman;\f2\fmodern\fcharset0 Courier;
+}
+{\colortbl;\red255\green255\blue255;\red109\green109\blue109;}
+{\*\expandedcolortbl;;\cssrgb\c50196\c50196\c50196;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}
+{\list\listtemplateid3\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid201\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid3}
+{\list\listtemplateid4\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid301\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid4}
+{\list\listtemplateid5\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid401\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid5}
+{\list\listtemplateid6\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid501\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid6}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}{\listoverride\listid5\listoverridecount0\ls5}{\listoverride\listid6\listoverridecount0\ls6}}
+\margl1440\margr1440\vieww28380\viewh15200\viewkind0
+\deftab720
+\pard\pardeftab720\sa321\partightenfactor0
 
-\f0\fs36 \cf0 Cleaning steps for calculating  SPK/SLK trends\
-\
-Files needed\
-\
-TX_KI+KP+Insti+Deceased_Donor_Recoded.sav\
-Tx_Li+Insti+Donor_Deceased.sav\
-\'97\'97\'97\
-\
-\
-TX_KI+KP+Insti+Deceased_Donor_Recoded.sav; Simply check KP first \
-\
-USKPT=1 if ORG_TY="KP" & Puerto_Rico_Recipient=0 & DON_TY="C"\
-Filter for TxYYYYMM >= 201501 & TxYYYYMM <= 202412\
-Cross tabs \
-\
-CrossTabs::::::::USKPT TxYYYYMM MOD \
-\'97\'97\'97\
-Now calculating \
-SLK \
-\
-Create USDDLT=1 IF ORG_TY="LI" & DON_TY="C" & Puerto_Rico_Recipient=0 in liver file and merge the liver file with kidney file via PERS ID and DONOR ID; \
-USSLK = 1 IF USDDKT=1 & USDDLT=1\
-CROSSTABS: USSLK*TXYYYYMM*TXYYYMM*MECHANISM RECODED\
-\
-\
-\'97\'97\'97\'97\'97\
-For joinpoint, you will have to make the output 3 decimal places given the small numbers }
+\f0\b\fs48 \cf0 \expnd0\expndtw0\kerning0
+Supplementary Figure 3: Data Cleaning and Preparation Steps\
+\pard\pardeftab720\sa298\partightenfactor0
+
+\fs36 \cf0 Overview\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 Supplementary Figure 3 presents joinpoint regression analysis of monthly overdose decedent donor (ODD)-associated transplant rates (January 2015\'96December 2024) for simultaneous pancreas-kidney (SPK) transplants (panel A) and simultaneous liver-kidney (SLK) transplants (panel B). Crude rates are calculated per US resident population using the NCI Joinpoint Regression Program Version 5.4 (detailed settings in manuscript Methods section).\
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 Software\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls1\ilvl0
+\fs24 \cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+IBM SPSS Statistics
+\f1\b0  Version 30.0.0.0 (Build 172) \'97 data cleaning and variable creation\
+\ls1\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+NCI Joinpoint Regression Program
+\f1\b0  Version 5.4 (National Cancer Institute) \'97 joinpoint analysis (detailed settings in manuscript Methods)\
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 Required Data Sources\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\fs28 \cf0 From Prior Figure Analyses\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 The cleaned and merged files from Figure 1 and Figure 4 cleaning steps are used as inputs. The original SRTR SAF files underlying those merged files are:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls2\ilvl0
+\f2\fs26 \cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+TX_KI.sav
+\f1\fs24  \'97 Kidney transplant records\
+\ls2\ilvl0
+\f2\fs26 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+TX_KP.sav
+\f1\fs24  \'97 Kidney-pancreas transplant records\
+\ls2\ilvl0
+\f2\fs26 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+TX_LI.sav
+\f1\fs24  \'97 Liver transplant records\
+\ls2\ilvl0
+\f2\fs26 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+INSTITUTION.sav
+\f1\fs24  \'97 Transplant center information\
+\ls2\ilvl0
+\f2\fs26 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+DONOR_DECEASED.sav
+\f1\fs24  \'97 Deceased donor characteristics\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 US Census Bureau Monthly Population Estimates\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls3\ilvl0
+\f1\b0\fs24 \cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Same population files as Figure 1 (see Figure 1 cleaning steps for full source details)\
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 Cleaning Steps\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\fs28 \cf0 Panel A: SPK Transplants\
+\pard\pardeftab720\sa319\partightenfactor0
+
+\fs24 \cf0 Step A1: Define US Deceased Donor KP Transplant Cohort\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0 \cf0 Using the merged kidney/kidney-pancreas transplant file (from Figure 1 cleaning steps), create variable:\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf0 USKPT = 1  IF  ORG_TY = "KP"  AND  Puerto_Rico_Recipient = 0  AND  DON_TY = "C"\
+\pard\pardeftab720\sa319\partightenfactor0
+
+\f0\b\fs24 \cf0 Step A2: Apply Inclusion Criteria and Filter to ODD\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0 \cf0 Select cases where:\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf0 TxYYYYMM >= 201501  AND  TxYYYYMM <= 202412  AND  USKPT = 1\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\fs24 \cf0 Filter to recoded donor mechanism of death = 1 (Drug overdose).\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f0\b \cf0 Expected N = 1,169 ODD-associated US deceased donor KP transplants
+\f1\b0 \
+\pard\pardeftab720\sa319\partightenfactor0
+
+\f0\b \cf0 Step A3: Generate Monthly ODD SPK Transplant Counts\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0 \cf0 Use SPSS Crosstabs:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls4\ilvl0
+\f0\b \cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Target (rows):
+\f1\b0  
+\f2\fs26 USKPT
+\f1\fs24 \
+\ls4\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Columns:
+\f1\b0  
+\f2\fs26 TxYYYYMM
+\f1\fs24 \
+\ls4\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Layer:
+\f1\b0  Recoded 
+\f2\fs26 DON_DEATH_MECH
+\f1\fs24 \
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Panel B: SLK Transplants\
+\pard\pardeftab720\sa319\partightenfactor0
+
+\fs24 \cf0 Step B1: Define SLK Transplants\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0 \cf0 Create variable in the liver file:\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf0 USDDLT = 1  IF  ORG_TY = "LI"  AND  DON_TY = "C"  AND  Puerto_Rico_Recipient = 0\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\fs24 \cf0 Merge the liver file with the kidney file using 
+\f2\fs26 PERS_ID
+\f1\fs24  and 
+\f2\fs26 DONOR_ID
+\f1\fs24  as linking variables to identify recipients who received both a kidney and a liver from the same donor.\
+Create variable:\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf0 USSLK = 1  IF  USDDKT = 1  AND  USDDLT = 1\
+\pard\pardeftab720\sa319\partightenfactor0
+
+\f0\b\fs24 \cf0 Step B2: Apply Inclusion Criteria and Filter to ODD\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0 \cf0 Select SLK cases within the study period (January 2015\'96December 2024) and filter to recoded donor mechanism of death = 1 (Drug overdose).\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f0\b \cf0 Expected N = 1,518 ODD-associated US SLK transplants
+\f1\b0 \
+\pard\pardeftab720\sa319\partightenfactor0
+
+\f0\b \cf0 Step B3: Generate Monthly ODD SLK Transplant Counts\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0 \cf0 Use SPSS Crosstabs:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls5\ilvl0
+\f0\b \cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Target (rows):
+\f1\b0  
+\f2\fs26 USSLK
+\f1\fs24 \
+\ls5\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Columns:
+\f1\b0  
+\f2\fs26 TxYYYYMM
+\f1\fs24 \
+\ls5\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Layer:
+\f1\b0  Recoded 
+\f2\fs26 DON_DEATH_MECH
+\f1\fs24 \
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Combined Joinpoint Input File\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 Compile SPK and SLK monthly counts into a single CSV file with the following columns:\
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2964\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth3932\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\qc\partightenfactor0
+
+\f0\b \cf0 Column\cell 
+\pard\intbl\itap1\pardeftab720\qc\partightenfactor0
+\cf0 Description\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2964\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth3932\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\b0\fs26 \cf0 Month
+\f1\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 Sequential month number (1\'96120)\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2964\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth3932\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf0 Donor_MoD
+\f1\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 1 = SPK, 2 = SLK\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2964\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth3932\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf0 Tx_Count
+\f1\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 Monthly ODD transplant count\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2964\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth3932\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf0 Resident_Population
+\f1\fs24 \cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 US monthly resident population estimate\cell \lastrow\row
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f0\b \cf0 Population source assignment:
+\f1\b0 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls6\ilvl0\cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+January 2015 \'96 December 2020: Resident Population from Census 2010-series (NA-EST2019-01)\
+\ls6\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+January 2021 \'96 December 2024: Resident Population from Census 2020-series (NA-EST2024-POP)\
+\pard\pardeftab720\sa240\partightenfactor0
+\cf0 The joinpoint program calculates the crude transplant rate from 
+\f2\fs26 Tx_Count
+\f1\fs24  and 
+\f2\fs26 Resident_Population
+\f1\fs24 . Analysis settings are described in the manuscript Methods section.\
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 Verification Checksums\
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth6256\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth3357\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\qc\partightenfactor0
+
+\fs24 \cf0 Checkpoint\cell 
+\pard\intbl\itap1\pardeftab720\qc\partightenfactor0
+\cf0 Expected Value\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth6256\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth3357\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f1\b0 \cf0 ODD-associated US deceased donor KP transplants (2015\'962024)\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 1,169\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth6256\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth3357\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 ODD-associated US SLK transplants (2015\'962024)\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 1,518\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth6256\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth3357\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 Rows in joinpoint input CSV\cell 
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 240 (120 months \'d7 2: SPK + SLK)\cell \lastrow\row
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 AI Disclosure\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 Generative AI (Claude, Anthropic, Opus 4.6 Extended) was used to format the cleaning steps per author's inputs and prompts.\
+}
